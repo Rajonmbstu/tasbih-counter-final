@@ -1,0 +1,57 @@
+let count = 0;
+let cycle = 0;
+
+function updateDisplays(){
+    const counterEl = document.getElementById('counter');
+    if (counterEl) counterEl.innerHTML = count;
+    const cycleEl = document.getElementById('cycle');
+    if (cycleEl) cycleEl.innerHTML = cycle;
+}
+
+document.addEventListener('DOMContentLoaded', updateDisplays);
+
+function flash(el){
+    if (!el) return;
+    el.classList.add('flash');
+    setTimeout(()=> el.classList.remove('flash'), 320);
+}
+
+function increment(){
+    count++;
+    // when count reaches 10, increment cycle and reset count to 0
+    if (count === 10){
+        cycle++;
+        const cycleEl = document.getElementById('cycle');
+        if (cycleEl){
+            cycleEl.innerHTML = cycle;
+            flash(cycleEl);
+        }
+        count = 0;
+    }
+    const counterEl = document.getElementById('counter');
+    if (counterEl) counterEl.innerHTML = count;
+}
+
+function decrement(){
+    // prevent negative counts
+    count = Math.max(0, count - 1);
+    const counterEl = document.getElementById('counter');
+    if (counterEl) counterEl.innerHTML = count;
+}
+
+function addCycle(){
+    // manually increment cycle and update display
+    cycle++;
+    const cycleEl = document.getElementById('cycle');
+    if (cycleEl){
+        cycleEl.innerHTML = cycle;
+        flash(cycleEl);
+    }
+}
+
+function reset(){
+    // reset both count and cycle and update displays
+    count = 0;
+    cycle = 0;
+    updateDisplays();
+}
